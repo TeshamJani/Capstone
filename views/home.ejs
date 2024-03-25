@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLoans - Your Home for Fast & Unsecured Business Loans</title>
+  <link rel="stylesheet" href="/styles2.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav id="navbar" class="navbar">
+  <div class="nav-items">
+    <span class="material-symbols-outlined">menu</span>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact Us</a>
+    <% if (user) { %>
+      <a href="/apply" class="apply">Apply Now</a>
+    <% } else { %>
+      <a href="/login?from=apply" class="apply">Apply Now</a>
+    <% } %>
+  </div>
+  <% if (user) { %>
+    <a href="/logout" class="register">Logout</a>
+  <% } else { %>
+    <a href="/login" class="register">Register | Login</a>
+  <% } %>
+</nav>
+
+<main class="main-content">
+  <section id="hero" class="section hero">
+    <div class="container">
+      <h1>Welcome to HST Fundings</h1>
+      <p>Your trusted partner for unsecured business loans. SMB Funding in Canada & USA. Get funds for your small business in just 24 hours. HST Funding is dedicated to helping your small or mid-sized business succeed by providing quick, easy small business funding in as little as one business day. We provide alternative business funding from as low as $5,000 up to $500,000 in all industries across Canada & USA.</p>
+      <!-- <a href="/apply" class="btn btn-primary">Apply Now</a> -->
+      <% if (user) { %>
+        <a href="/apply" class="apply">Apply Now</a>
+      <% } else { %>
+        <a href="/login?from=apply" class="btn btn-primary">Apply Now</a>
+      <% } %>
+    </div>
+
+  </section>
+
+  <section id="how-it-works" class="section2">
+    <div class="container2">
+      <div id="con1" class="con"> 
+        <img class="money" src="icons/money.png" alt="Cash Advances">
+        <h1 class="conh">Cash Advances</h1>
+        <p class="conp">You will receive working capital now, and we will receive a percentage of your weekly credit card sales until the terms of the advance have been met.</p>
+      </div>
+      <div id="con2" class="con">
+        <img class="money" src="icons/loan.png" alt="Business Loan">
+        <h1 class="conh">Business Loan</h1>
+        <p class="conp">You will receive working capital now, and we will receive a percentage of your weekly credit card sales until the terms of the advance have been met.</p>
+      </div>
+      <div id="con3" class="con"> 
+        <img class="money" src="icons/customer-service.png" alt="Customer Support">
+        <h1 class="conh">Customer Support</h1>
+        <p class="conp">You will receive working capital now, and we will receive a percentage of your weekly credit card sales until the terms of the advance have been met.</p>
+      </div>
+      <div id="con4" class="con"> 
+        <img class="money" src="/icons/moneyy.png" alt="Payment Processing">
+        <h1 class="conh">Payment Processing</h1>
+        <p class="conp">You will receive working capital now, and we will receive a percentage of your weekly credit card sales until the terms of the advance have been met.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <!-- Footer content can go here -->
+</footer>
+
+<script src="/index.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

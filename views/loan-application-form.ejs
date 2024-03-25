@@ -1,0 +1,157 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for a Business Loan Online</title>
+  <link rel="stylesheet" href="/formstyles.css">
+  <link rel="stylesheet" href="/styles2.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar">
+    <div class="nav-items">
+      <span class="material-symbols-outlined">menu</span>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact Us</a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/apply" class="apply">Apply Now</a>
+      <% } else { %>
+        <a href="/login?from=apply" class="apply">Apply Now</a>
+      <% } %>
+    </div>
+    <% if (typeof user !== 'undefined' && user) { %>
+      <a href="/logout" class="register">Logout</a>
+    <% } else { %>
+      <a href="/login" class="register">Register | Login</a>
+    <% } %>
+  </nav>
+
+  <main class="main-content">
+    <section id="business-loan-hero" class="business-loan-section hero">
+      <div class="business-loan-container">
+        <h2>Apply for a Business Loan Online</h2>
+        
+        <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+          <div class="alert success"><%= successMessage %></div>
+          <% if (typeof loanOffers !== 'undefined' && loanOffers.length > 0) { %>
+            <div class="loan-offers-container">
+              <h3>Loan Offers</h3>
+              <% loanOffers.forEach(function(offer, index) { %>
+                <div class="loan-offer">
+                  <p>Offer Amount: $<%= offer.offerAmount %></p>
+                  <p>Interest Rate: <%= offer.interestRate %>%</p>
+                  <p>Term: <%= offer.termMonths %> months</p>
+                  <!-- Button to accept the offer -->
+                  <button class="accept-offer-btn" data-offer-index="<%= index %>">Accept Offer</button>
+                </div>
+              <% }); %>
+              <button onclick="location.href='mailto:?subject=Loan Offer&body=Your loan offers details...'" class="send-offer-btn">Send Offers to Email</button>
+            </div>
+          <% } %>
+        <% } %>
+        
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+          <div class="alert error"><%= errorMessage %></div>
+        <% } %>
+  
+        <% if (!successMessage) { %>
+          <form action="/submit-application" method="post" class="business-loan-form">
+            <div class="business-loan-form-group">
+           <!-- Rest of your form goes here -->
+            
+              <label for="business-loan-funding-amount">Funding Amount *</label>
+              <select id="business-loan-funding-amount" name="fundingAmount" class="business-loan-form-select" required>
+                <option value="">upto $5000</option>
+                <option value="5000to15000">$5000 to $15000</option>
+                <option value="15000to30000">$15000 to $30000</option>
+                <option value="30000plus">$30000 plus</option>
+              </select>
+            </div>
+    
+            <div class="business-loan-form-group">
+              <label for="business-loan-monthly-revenue">Monthly Revenue/Deposit *</label>
+              <select id="business-loan-monthly-revenue" name="monthlyRevenue" class="business-loan-form-select" required>
+                <option value="">upto $15000</option>
+                <option value="15000to30000">$15000 to $30000</option>
+                <option value="30000to50000">$30000 to $50000</option>
+                <option value="50000plus">$50000 plus</option>
+              </select>
+            </div>
+    
+            <div class="business-loan-form-group">
+              <label for="business-loan-time-in-business">Time in business *</label>
+              <select id="business-loan-time-in-business" name="timeInBusiness" class="business-loan-form-select" required>
+                <option value="">upto 6 months</option>
+                <option value="6monthsto1year">6 months to 1 year</option>
+                <option value="1to3years">1 year to 3 years</option>
+                <option value="3yearsplus">3 years plus</option>
+              </select>
+            </div>
+    
+            <div class="business-loan-form-group">
+              <label for="business-loan-company-name">Company name *</label>
+              <input type="text" id="business-loan-company-name" name="companyName" class="business-loan-form-input" required>
+            </div>
+    
+            <div class="business-loan-form-group">
+              <label for="business-loan-industry">Industry</label>
+              <input type="text" id="business-loan-industry" name="industry" class="business-loan-form-input">
+            </div>
+    
+            <div class="business-loan-form-group">
+              <label for="business-loan-additional-details">Additional Details</label>
+              <textarea id="business-loan-additional-details" name="additionalDetails" class="business-loan-form-textarea"></textarea>
+            </div>
+    
+            <div class="business-loan-form-group checkbox-group">
+              <input type="checkbox" id="business-loan-agree-terms" name="agreeTerms" class="business-loan-form-checkbox" required>
+              <label for="business-loan-agree-terms" class="business-loan-checkbox-label">I agree with the terms and conditions</label>
+            </div>
+    
+            <button type="submit" class="business-loan-submit-button">Submit</button>
+          </form>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+  <!-- Footer content -->
+</footer>
+
+<script src="/index.js"></script>
+<script src="/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var offerButtons = document.querySelectorAll('.accept-offer-btn');
+      
+      offerButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+              var offerIndex = this.getAttribute('data-offer-index');
+              acceptOffer(offerIndex);
+          });
+      });
+  });
+  
+  function acceptOffer(offerIndex) {
+      alert("Offer " + (parseInt(offerIndex) + 1) + " accepted!");
+      // Here, implement what should happen when an offer is accepted.
+      // For example, you might want to make a fetch() request to your server.
+  }
+  </script>
+  
+</body>
+</html>
+
+
+
+
