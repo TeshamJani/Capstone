@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLoans - Your Home for Fast & Unsecured Business Loans</title>
+  <link rel="stylesheet" href="/styles2.css">
+  <link rel="stylesheet" href="/formstyles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    text{
+        color: #ffffff;
+    }
+    .bold-text {
+      font-weight: bold; /* Make text bold */
+    }
+    table th, table td {
+      color: #ffffff; /* Make table header and cell text color white */
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar" class="navbar">
+    <div class="nav-items">
+      <span class="material-symbols-outlined">menu</span>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact Us</a>
+      <% if (user) { %>
+        <a href="/apply" class="apply">Apply Now</a>
+        <!-- Add Application Status link for logged-in users -->
+        <a href="/user-dashboard" class="application-status">Application Status</a>
+      <% } else { %>
+        <a href="/login?from=apply" class="apply">Apply Now</a>
+      <% } %>
+    </div>
+    <% if (user) { %>
+      <a href="/logout" class="register">Logout</a>
+    <% } else { %>
+      <a href="/login" class="register">Register | Login</a>
+    <% } %>
+  </nav>
+  
+  <main>
+    <div class="container">
+        <h1>Application Status</h1>
+        <% if (applications && applications.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Requested Amount</th>
+                        <th>Status</th>
+                        <!-- Add new table headers for admin approval date and loan period -->
+                        <th>Admin Approval Date</th>
+                        <th>Loan Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% applications.forEach(application => { %>
+                        <tr>
+                            <td><%= application.companyName %></td>
+                            <td>$<%= application.fundingAmount %></td>
+                            <td>
+                                <% if (application.status && application.status.status) { %>
+                                    <%= application.status.status.toUpperCase() %>
+                                <% } else { %>
+                                    PENDING
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>You have no applications to display.</p>
+        <% } %>
+    </div>
+</main>
+
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 QuickLoans - All Rights Reserved</p>
+    <p>Follow us on <a href="#">Social Media</a></p>
+  </div>
+</footer>
+
+
+<script></script>
+<script src="/index.js"></script>
+<script src="/main.js"></script>
+<script src="/send-offer-email.js"></script>
+</body>
+</html>

@@ -12,24 +12,27 @@
 </head>
 <body>
 
-<nav id="navbar" class="navbar">
-  <div class="nav-items">
-    <span class="material-symbols-outlined">menu</span>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact Us</a>
+  <nav id="navbar" class="navbar">
+    <div class="nav-items">
+      <span class="material-symbols-outlined">menu</span>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact Us</a>
+      <% if (user) { %>
+        <a href="/apply" class="apply">Apply Now</a>
+        <!-- Add Application Status link for logged-in users -->
+        <a href="/user-dashboard" class="application-status">Application Status</a>
+      <% } else { %>
+        <a href="/login?from=apply" class="apply">Apply Now</a>
+      <% } %>
+    </div>
     <% if (user) { %>
-      <a href="/apply" class="apply">Apply Now</a>
+      <a href="/logout" class="register">Logout</a>
     <% } else { %>
-      <a href="/login?from=apply" class="apply">Apply Now</a>
+      <a href="/login" class="register">Register | Login</a>
     <% } %>
-  </div>
-  <% if (user) { %>
-    <a href="/logout" class="register">Logout</a>
-  <% } else { %>
-    <a href="/login" class="register">Register | Login</a>
-  <% } %>
-</nav>
+  </nav>
+  
 
 <main class="main-content">
   <section id="hero" class="section hero">
@@ -73,10 +76,21 @@
 </main>
 
 <footer class="footer">
-  <!-- Footer content can go here -->
+  <div class="footer-content">
+    <p>&copy; 2024 HST Funding. All Rights Reserved.</p>
+    <ul class="footer-links">
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy Policy</a></li>
+    </ul>
+    <p>Follow us on <a href="https://www.socialmedia.com/quickloans">Social Media</a></p>
+  </div>
 </footer>
+
+
 
 <script src="/index.js"></script>
 <script src="/main.js"></script>
+<script src="/send-offer-email.js"></script>
 </body>
 </html>

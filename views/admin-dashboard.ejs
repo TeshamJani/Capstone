@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.dashboard-container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.application {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+.application h2 {
+    color: #0056b3;
+}
+
+.application p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+/* Button styling */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Additional visual tweaks for forms */
+input[type="hidden"] {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Loan Application Dashboard</h1>
+        <% applications.forEach(function(application) { %>
+            <div class="application">
+                <h2>Application Details</h2>
+                <p><strong>Company Name:</strong> <%= application.companyName %></p>
+                <p><strong>Amount Requested:</strong> <%= application.fundingAmount %></p>
+                <p><strong>Status:</strong> 
+                    <% if (application.status) { %>
+                        <%= application.status.status %>
+                        <% if (application.status.status === 'approved') { %>
+                            - Offer Accepted
+                        <% } else if (application.status.status === 'rejected') { %>
+                            - Offer Rejected
+                        <% } %>
+                    <% } else { %>
+                        Pending
+                    <% } %>
+                </p>
+                <p><strong>Applicant:</strong> <%= application.userId ? application.userId.name : 'Unknown' %></p>
+                <!-- Approve and Reject buttons/form -->
+                <div class="actions">
+                    <form action="/approve-loan" method="post" style="display: inline;">
+                        <input type="hidden" name="applicationId" value="<%= application._id %>">
+                        <button type="submit" name="action" value="approve">Approve</button>
+                    </form>
+                    <form action="/reject-loan" method="post" style="display: inline;">
+                        <input type="hidden" name="applicationId" value="<%= application._id %>">
+                        <button type="submit" name="action" value="reject">Reject</button>
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

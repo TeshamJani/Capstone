@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLoans - Your Home for Fast & Unsecured Business Loans</title>
+  <link rel="stylesheet" href="/styles2.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar">
+    <div class="nav-items">
+      <span class="material-symbols-outlined">menu</span>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact Us</a>
+      <% if (user) { %>
+        <a href="/apply" class="apply">Apply Now</a>
+        <a href="/user-dashboard" class="application-status">Application Status</a>
+      <% } else { %>
+        <a href="/login?from=apply" class="apply">Apply Now</a>
+      <% } %>
+    </div>
+    <% if (user) { %>
+      <a href="/logout" class="register">Logout</a>
+    <% } else { %>
+      <a href="/login" class="register">Register | Login</a>
+    <% } %>
+  </nav>
+  
+
+<main class="about-content">
+  <section id="hero" class="section hero">
+    <div class="containerx">
+      <h1>About HST Fundings</h1>
+      <h4>
+        Our capstone project revolves around revolutionizing the business financing landscape. 
+        We specialize in providing swift, unsecured business funding to entrepreneurs, offering a 
+        key alternative to the lengthy and cumbersome processes associated with traditional 
+        secured loans. Recognizing the urgency of business needs, we commit to delivering 
+        funds within 2 business days, enabling rapid business growth.
+        
+        </h4>
+        <h4>
+            Our unique proposition lies in the speed of our service, as we understand that time is 
+        often of the essence for businesses. By offering unsecured business loans, we eliminate 
+        the need for collateral, expediting the approval process. While our interest rates are 
+        slightly higher than those of traditional banks, they are tailored to the individual 
+        business's credit score and loan duration, ensuring fairness and flexibility.
+        </h4>
+        <h4>
+            Through our user-friendly website, businesses can effortlessly generate a free PDF 
+        containing multiple loan offers. This transparent approach empowers them to make 
+        informed decisions that align with their financial goals. Our goal is to provide accessible 
+        and efficient financial solutions, fostering a supportive environment for businesses to 
+        thrive.
+        </h4>
+    </div>
+
+  </section>
+
+ 
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2024 HST Funding. All Rights Reserved.</p>
+    <ul class="footer-links">
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy Policy</a></li>
+    </ul>
+    <p>Follow us on <a href="https://www.socialmedia.com/quickloans">Social Media</a></p>
+  </div>
+</footer>
+
+
+
+<script src="/index.js"></script>
+<script src="/main.js"></script>
+<script src="/send-offer-email.js"></script>
+</body>
+</html>

@@ -1,100 +1,116 @@
-/* Basic Reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-label{
-    font-size: 2rem;
-}
-/* Form styling */
-.business-loan-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 25px;
-    /* background-color: #f7f7f7; */
+/* Loan Application Form Styles */
+.loan-application-form {
+    background-color: #ffffff; /* Adjust to fit your site's theme */
+    padding: 20px;
     border-radius: 8px;
-}
-
-.business-loan-form-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .loan-application-form h2 {
+    color: #333333;
     margin-bottom: 20px;
-}
-
-.business-loan-form-group label {
-    display: block;
-    margin-bottom: 15px;
-    color: #ffffff;
-    font-size: 17px;
-}
-
-.business-loan-form-input, 
-.business-loan-form-select, 
-.business-loan-form-textarea {
+  }
+  
+  .loan-application-form label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444444;
+  }
+  
+  .loan-application-form input[type="text"],
+  .loan-application-form select,
+  .loan-application-form textarea,
+  .loan-application-form button {
     width: 100%;
     padding: 10px;
-    /* border: 2px solid #ffffff; */
+    margin-bottom: 20px; /* Ensure each form item is on its own line */
+    border: 1px solid #cccccc;
     border-radius: 4px;
-    font-size: 19px;
-    color: #333;
-    background-color: #e5e1e8;
-}
-
-.business-loan-form-textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-/* Custom styling for checkbox to place it inline with its label */
-.checkbox-group {
+    box-sizing: border-box;
+  }
+  
+  .loan-application-form textarea {
+    height: 150px; /* Larger height for additional details */
+  }
+  
+  .checkbox-group {
     display: flex;
     align-items: center;
-}
-
-.business-loan-form-checkbox {
+    margin-bottom: 20px;
+  }
+  
+  .loan-application-form input[type="checkbox"] {
     margin-right: 10px;
-}
-
-.business-loan-submit-button {
-    background-color: #0056b3;
-    color: rgb(243, 243, 243);
-    padding: 10px 20px;
+  }
+  
+  .loan-application-form .submit-button {
+    background-color: #0056b3; /* Primary color for submit button */
+    color: #ffffff;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-}
-
-.business-loan-submit-button:hover {
-    background-color: #004494;
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-    .business-loan-form {
-        padding: 10px;
-    }
-}
-/* General alert message styling */
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 24px; /* Make text bigger */
-    font-weight: bold; /* Make text bolder */
-}
-
-/* Success message specific styling */
-.alert.success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-}
-
-/* Error message specific styling */
-.alert.error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-}
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .loan-application-form .submit-button:hover {
+    background-color: #003d82; /* Darker shade on hover for better interaction feedback */
+  }
+  .loan-offer-display {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #007BFF; /* Example primary color */
+    border-radius: 10px;
+    background-color: #f2f2f2; /* Light grey background */
+  }
+  
+  .loan-offer-display h3 {
+    color: #007BFF; /* Example primary color */
+    margin-bottom: 15px;
+  }
+  
+  .loan-option {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #007BFF; /* Example primary color */
+    background-color: white;
+  }
+  
+  .loan-option h4 {
+    margin-top: 0;
+    color: #333; /* Dark grey color */
+  }
+  
+  .loan-option p {
+    margin: 5px 0;
+    color: #666; /* Medium grey color */
+  }
+  
+  #sendOfferForm {
+    margin-top: 20px;
+  }
+  
+  #sendOfferForm input[type=email] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #sendOfferForm button {
+    padding: 10px 20px;
+    background-color: #007BFF; /* Example primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #sendOfferForm button:hover {
+    background-color: #0056b3; /* Darker shade for hover state */
+  }
+  

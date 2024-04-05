@@ -1,14 +1,14 @@
 
-</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apply for a Business Loan Online</title>
-  <link rel="stylesheet" href="/formstyles.css">
+  <title>QuickLoans - Your Home for Fast & Unsecured Business Loans</title>
   <link rel="stylesheet" href="/styles2.css">
+  <link rel="stylesheet" href="/formstyles.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,136 +22,142 @@
       <a href="/">Home</a>
       <a href="/about">About</a>
       <a href="/contact">Contact Us</a>
-      <% if (typeof user !== 'undefined' && user) { %>
+      <% if (user) { %>
         <a href="/apply" class="apply">Apply Now</a>
+        <!-- Add Application Status link for logged-in users -->
+        <a href="/user-dashboard" class="application-status">Application Status</a>
       <% } else { %>
         <a href="/login?from=apply" class="apply">Apply Now</a>
       <% } %>
     </div>
-    <% if (typeof user !== 'undefined' && user) { %>
+    <% if (user) { %>
       <a href="/logout" class="register">Logout</a>
     <% } else { %>
       <a href="/login" class="register">Register | Login</a>
     <% } %>
   </nav>
+  
 
-  <main class="main-content">
-    <section id="business-loan-hero" class="business-loan-section hero">
-      <div class="business-loan-container">
-        <h2>Apply for a Business Loan Online</h2>
+<main class="main-content">
+  <section class="section hero">
+    <div class="container">
+      <h1>Welcome to QuickLoans</h1>
+      <p>Ready to take your business to the next level with fast, unsecured business loans? Apply now and get funding in as little as 24 hours!</p>
+      <% if (user) { %>
+        <form action="/submit-application" method="post" class="loan-application-form">
+          <h2>Business Loan Application Form</h2>
+
+          <label for="companyName">Company Name *</label>
+          <input type="text" id="companyName" name="companyName" required>
+
+          <label for="fundingAmount">Funding Amount Requested *</label>
+          <select id="fundingAmount" name="fundingAmount" required>
+            <option value="">Select Amount</option>
+            <option value="5000">Up to $5,000</option>
+            <option value="15000">$5,000 to $15,000</option>
+            <option value="30000">$15,000 to $30,000</option>
+            <option value="50000">$30,000 to $50,000</option>
+            <option value="500000">$50,000+</option>
+          </select>
+
+          <label for="monthlyRevenue">Monthly Revenue *</label>
+          <input type="text" id="monthlyRevenue" name="monthlyRevenue" required>
+
+          <label for="timeInBusiness">Time in Business *</label>
+          <select id="timeInBusiness" name="timeInBusiness" required>
+            <option value="">Select Duration</option>
+            <option value="6">Up to 6 months</option>
+            <option value="12">6 to 12 months</option>
+            <option value="36">1 to 3 years</option>
+            <option value="more">More than 3 years</option>
+          </select>
+
+          <label for="industry">Industry</label>
+          <input type="text" id="industry" name="industry">
+
+          <label for="additionalDetails">Additional Details</label>
+          <textarea id="additionalDetails" name="additionalDetails"></textarea>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+            <label for="agreeTerms">I agree to the Terms and Conditions *</label>
+          </div>
+
+          <div class="form-messages">
+            <% if (messages.success.length > 0) { %>
+              <div class="success-message"><%= messages.success[0] %></div>
+            <% } %>
+            <% if (messages.error.length > 0) { %>
+              <div class="error-message"><%= messages.error[0] %></div>
+            <% } %>
+          </div>
+          
+          <button type="submit" class="submit-button">Submit Application</button>
+        </form>
         
-        <% if (typeof successMessage !== 'undefined' && successMessage) { %>
-          <div class="alert success"><%= successMessage %></div>
-          <% if (typeof loanOffers !== 'undefined' && loanOffers.length > 0) { %>
-            <div class="loan-offers-container">
-              <h3>Loan Offers</h3>
-              <% loanOffers.forEach(function(offer, index) { %>
-                <div class="loan-offer">
-                  <p>Offer Amount: $<%= offer.offerAmount %></p>
-                  <p>Interest Rate: <%= offer.interestRate %>%</p>
-                  <p>Term: <%= offer.termMonths %> months</p>
-                  <!-- Button to accept the offer -->
-                  <button class="accept-offer-btn" data-offer-index="<%= index %>">Accept Offer</button>
+        <% if (loanOffer) { %>
+          <div class="loan-offer-display">
+            <h3>Your Loan Offer: $<%= loanOffer.amount.toFixed(2) %></h3>
+            <form action="/submit-application" method="post" class="loan-application-form">
+              <h4>Select Loan Option:</h4>
+              <% loanOffer.options.forEach(function(option, index) { %>
+                <div class="loan-option">
+                  <input type="radio" id="option<%= index %>" name="selectedOption" value="<%= index %>" required>
+                  <label for="option<%= index %>">Option <%= index + 1 %>:</label>
+                  <p>Interest Rate: <%= option.interestRate %>%</p>
+                  <p>Duration: <%= option.duration %></p>
+                  <p><%= option.summary %></p>
                 </div>
               <% }); %>
-              <button onclick="location.href='mailto:?subject=Loan Offer&body=Your loan offers details...'" class="send-offer-btn">Send Offers to Email</button>
-            </div>
-          <% } %>
+              <!-- Hidden fields for other application details -->
+
+              <!-- Submit button for the loan offer selection -->
+              <button type="submit" class="submit-button">Submit Application</button>
+            </form>
+          </div>
         <% } %>
         
-        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
-          <div class="alert error"><%= errorMessage %></div>
+
+      <% } else { %>  
+        <p>Please <a href="/login?from=apply">log in</a> to apply for a loan.</p>
+      <% } %>
+    </div>
+  </section>
+  <section class="user-dashboard">
+    <div class="container">
+        <h2>Your Application Status</h2>
+        <% if (user && user.applicationStatus) { %>
+            <% if (user.applicationStatus === 'approved') { %>
+                <p>Your application has been <strong>approved</strong>. Congratulations!</p>
+            <% } else if (user.applicationStatus === 'rejected') { %>
+                <p>Your application has been <strong>rejected</strong>. We apologize for any inconvenience.</p>
+            <% } else { %>
+                <p>Your application is <strong>pending</strong>. Please wait for further updates.</p>
+            <% } %>
+        <% } else { %>
+            <p>No application status available. Please apply for a loan to check your status.</p>
         <% } %>
-  
-        <% if (!successMessage) { %>
-          <form action="/submit-application" method="post" class="business-loan-form">
-            <div class="business-loan-form-group">
-           <!-- Rest of your form goes here -->
-            
-              <label for="business-loan-funding-amount">Funding Amount *</label>
-              <select id="business-loan-funding-amount" name="fundingAmount" class="business-loan-form-select" required>
-                <option value="">upto $5000</option>
-                <option value="5000to15000">$5000 to $15000</option>
-                <option value="15000to30000">$15000 to $30000</option>
-                <option value="30000plus">$30000 plus</option>
-              </select>
-            </div>
-    
-            <div class="business-loan-form-group">
-              <label for="business-loan-monthly-revenue">Monthly Revenue/Deposit *</label>
-              <select id="business-loan-monthly-revenue" name="monthlyRevenue" class="business-loan-form-select" required>
-                <option value="">upto $15000</option>
-                <option value="15000to30000">$15000 to $30000</option>
-                <option value="30000to50000">$30000 to $50000</option>
-                <option value="50000plus">$50000 plus</option>
-              </select>
-            </div>
-    
-            <div class="business-loan-form-group">
-              <label for="business-loan-time-in-business">Time in business *</label>
-              <select id="business-loan-time-in-business" name="timeInBusiness" class="business-loan-form-select" required>
-                <option value="">upto 6 months</option>
-                <option value="6monthsto1year">6 months to 1 year</option>
-                <option value="1to3years">1 year to 3 years</option>
-                <option value="3yearsplus">3 years plus</option>
-              </select>
-            </div>
-    
-            <div class="business-loan-form-group">
-              <label for="business-loan-company-name">Company name *</label>
-              <input type="text" id="business-loan-company-name" name="companyName" class="business-loan-form-input" required>
-            </div>
-    
-            <div class="business-loan-form-group">
-              <label for="business-loan-industry">Industry</label>
-              <input type="text" id="business-loan-industry" name="industry" class="business-loan-form-input">
-            </div>
-    
-            <div class="business-loan-form-group">
-              <label for="business-loan-additional-details">Additional Details</label>
-              <textarea id="business-loan-additional-details" name="additionalDetails" class="business-loan-form-textarea"></textarea>
-            </div>
-    
-            <div class="business-loan-form-group checkbox-group">
-              <input type="checkbox" id="business-loan-agree-terms" name="agreeTerms" class="business-loan-form-checkbox" required>
-              <label for="business-loan-agree-terms" class="business-loan-checkbox-label">I agree with the terms and conditions</label>
-            </div>
-    
-            <button type="submit" class="business-loan-submit-button">Submit</button>
-          </form>
-        <% } %>
-      </div>
-    </section>
-  </main>
+    </div>
+</section>
+</main>
+
 
 <footer class="footer">
-  <!-- Footer content -->
+  <div class="footer-content">
+    <p>&copy; 2024 HST Funding. All Rights Reserved.</p>
+    <ul class="footer-links">
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/privacy">Privacy Policy</a></li>
+    </ul>
+    <p>Follow us on <a href="https://www.socialmedia.com/quickloans">Social Media</a></p>
+  </div>
 </footer>
 
+
+<script></script>
 <script src="/index.js"></script>
 <script src="/main.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-      var offerButtons = document.querySelectorAll('.accept-offer-btn');
-      
-      offerButtons.forEach(function(button) {
-          button.addEventListener('click', function() {
-              var offerIndex = this.getAttribute('data-offer-index');
-              acceptOffer(offerIndex);
-          });
-      });
-  });
-  
-  function acceptOffer(offerIndex) {
-      alert("Offer " + (parseInt(offerIndex) + 1) + " accepted!");
-      // Here, implement what should happen when an offer is accepted.
-      // For example, you might want to make a fetch() request to your server.
-  }
-  </script>
-  
+<script src="/send-offer-email.js"></script>
 </body>
 </html>
-
-
-
-
